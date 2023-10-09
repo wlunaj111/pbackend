@@ -10,7 +10,7 @@ const app = express();
 
 const pool = new pg.Pool({    
         connectionString: process.env.DATABASE_URL,
-        //ssl: true
+        ssl: true
     });
 
 // Definir un puerto para nuestro servidor
@@ -25,7 +25,7 @@ app.get('/ping', async (req, res) => {
 
     try {
        const result = await pool.query('SELECT NOW()')
-       console.log(result)
+       return res.json(result.rows[0])
       } catch(err) {
         console.log(err);
         console.log(err.stack);
